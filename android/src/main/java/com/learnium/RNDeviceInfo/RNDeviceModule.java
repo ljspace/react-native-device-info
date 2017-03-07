@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings.Secure;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.google.android.gms.iid.InstanceID;
 
@@ -31,6 +33,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @Override
   public String getName() {
     return "RNDeviceInfo";
+  }
+  
+  private String getDisplayName() {
+      final PackageManager pm = getReactApplicationContext().getPackageManager();
+      ApplicationInfo ai;
+      try {
+          ai = pm.getApplicationInfo( getReactApplicationContext().getPackageName(), 0);
+      } catch (final NameNotFoundException e) {
+          ai = null;
+      }
+
+      return (String) (ai != null ? pm.getApplicationLabel(ai) : "(unknown)");  
   }
 
   private String getCurrentLanguage() {
