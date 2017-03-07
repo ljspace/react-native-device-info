@@ -23,6 +23,9 @@ module.exports = {
   getBrand: function () {
     return RNDeviceInfo.brand;
   },
+  getDisplayName: function () {
+    return RNDeviceInfo.displayName;
+  },
   getSystemName: function () {
     return RNDeviceInfo.systemName;
   },
